@@ -12,6 +12,8 @@ types in Python. This module supports weighted, unweigthed, directed and undirec
 easy to use and simplifies implementation of algorothms on graphs. It is efficient and can be potentially useful for debugging algorithms 
 on graphs. The module also has useful algorithms built in to it and has graph visualisation implementation in the works.
 
+All documentation can be found with help(). 
+
 Sample code can be found in the repository. 
 
 ## Resources
