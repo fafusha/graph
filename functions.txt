@@ -1,0 +1,5 @@
+adjacent(G, x, y)
+neighbours(G, x)
+add_vertex(G)
+add_edge(G, edges)
+
