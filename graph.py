@@ -1,14 +1,12 @@
-"""Description of the module
 
-
-Reference:
-https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
-http://svn.python.org/projects/python/trunk/Objects/setobject.c
-https://wiki.python.org/moin/TimeComplexity
-"""
 # TODO
 # Use difference_update for O(1) when removing vertices from an undirected graph.
 # https://python-reference.readthedocs.io/en/latest/docs/sets/difference_update.html
+#
+# Modify add_vertex and add_edge to support all iterable objects
+#
+# Take a note of this example to edit error messages
+# return 'Color(%s, %s, %s)' % (self.red, self.green, self.blue)
 
 class Graph(object):
     """Summary of a class here.
@@ -25,59 +23,34 @@ class Graph(object):
 
     # A Graph type object
     def __init__(self, vertices, edges, directed=False, weighted=False):
-
-        """
-        # A new graph with given vertices and sets
-        # Catching Type Errors Block
-        if not isinstance(vertices, set):
-            raise TypeError("vertices must be a set")  # fix err msg
-        # A copy of this is in add_edges KEEP TRACK OF CHANGES {
-        if not isinstance(edges, set):
-            raise TypeError("edges must be a set")  # fix err msg
-        for edge in edges:
-            if not isinstance(edge, tuple):
-                raise TypeError("edges must only contain tuples")  # fix err msg
-            if len(edge) != 2:
-                raise TypeError("edges must only contain tuples of length 2")  # fix err msg
-        # }
-        if not isinstance(directed, bool):
-            raise TypeError("directed must be bool")  # fix err msg
-        # end fo error block
-        """
+        """Initializes a graph"""
 
         self.vertices = set()
         self.edges = set()
         self.directed = directed
+        self.weighted = weighted
         self.adj_l = {}  # adjacency list
 
-        self.add_vertices(vertices)
-        self.add_edges(edges)
-        # add a map of every element to its index, for simplicity?
-        # tbh i think this is dumb...
-        # figure out a way to do an ass map in a list
-        # do this with adjacency lists
-        # also add numpy on top of this
-        # Add type checking for vertices edges and directed have to be set()
-        # raise TypeError
+        self.add_vertex(vertices)
+        self.add_edge(edges)
 
-    # fix
-    # def __str__(self):
-    #   # add a print statement do so its prints edges and vertices
-    #  pass
-    # fix
-    # def __eq__(self, ):
-        # ???
-        # do equality based on vertices names and paths, look into this
-        # if graphs have same vertices names and paths..., but keep in ind issue of indexing of whatever t
-        # e name is, like i wanted to do a map or some shit'''
-        # ???
-    #   pass
 
-    def add_vertices(self, vertices):
+    def __str__(self):
+        """Return a string representing a graph in a form of a set of vertices and a set of edges"""
+        return '\n'.join([str(self.vertices), str(self.edges)])
+
+    def __eq__(self, other_graph):
+        """Return True if graphs have same vertices and edges"""
+        if not isinstance(other_graph, Graph):
+            return False
+        return self.vertices == other_graph.vertices and self.edges == other_graph.edges
+
+
+    def add_vertex(self, vertices):
         """Adds vertices to the graph.
 
         Args:
-            vertices: set or a single variable containing vertices.
+            vertices: set or a single variable containing vertices. # fix
 
         Raises:
             TypeError: if vertices is of incorrect type
@@ -86,85 +59,74 @@ class Graph(object):
         """
         # IMPORTANT: add TypeError for vertices of incorrect type
         if isinstance(vertices, set):
-            for v in vertices:
-                if v in self.vertices:
+            for x in vertices:
+                if x in self.vertices:
                     raise NameError("vertex already belongs belongs to a graph")  # fix err msg add v name to msg
-                self.vertices.add(v)
+                self.vertices.add(x)
         else:
+            # Try using try/excepts statement to catch TypeError
             if vertices in self.vertices:
                     raise NameError("vertex already belongs belongs to a graph")  # fix err msg add v name to msg
             self.vertices.add(vertices)
-        # fix name func
-        # a set() can be passed or a single variable
-        # catch type errors
-        # RAISE ERR IF VERTEX EXISTS?????
 
-    def add_edges(self, edges):
-        """Adds edges to the graph
+    # Test this
+    def remove_vertex(self, vertices):
+        """Removes vertices from the graph.
 
         Args:
-            edges: a set of edges of a single variable.  # fix
-
-        Raises:
-            TypeError: if edges is of incorrect type  # fix
-            NameError: if vertex does not belong to the graph  # fix
-
+            vertices: set or a single variable containing vertices.  # fix
         """
-        # fix name func
-        # a set() can be passed on or a single variable
-        # add error message if sug path exists? (optional)
-        # Code taken form__int__KEEPTR ACK OF CHANGES {
-        if isinstance(edges, set):
-            for edge in edges:
-                # possibly combine two if statements together, review later
-                # decided not to change because errors are different ???
-                # Start of error block
-                if not isinstance(edge, tuple):
-                    raise TypeError("each edge must be a tuple")  # fix err msg
-                if len(edge) != 2:
-                    raise TypeError("each edge must have only beg and the end")  # fix err msg
-                # end of error block
-
-                # adding edges
-                vertex1, vertex2 = edge
-                if vertex1 not in self.vertices:
-                    raise NameError("v1 does nto belong to a graph")  # fix err msg
-                if vertex2 not in self.vertices:
-                    raise NameError("v2 does nto belong to a graph")  # fix err msg
-
-                if vertex1 not in self.adj_l:
-                    self.adj_l[vertex1] = {vertex2}
-                else:
-                    self.adj_l[vertex1].add(vertex2)
-                self.edges.add((vertex1, vertex2))
-                if not self.directed:
-                    if v2 not in self.adj_l:
-                        self.adj_l[vertex2] = {vertex1}
+        '''
+        # Old implementation remove in the next merge
+        # Case for a set
+        if isinstance(vertices, set):
+            for x in vertices:
+                if x in self.vertices:
+                    # Fast implementation for undirected graphs
+                    if not self.directed:
+                        for y in self.adj_l[x]:
+                            self.adj_l[y].differnce_update(x)
                     else:
-                        self.adj_l[vertex2].add(vertex1)
-                    self.edges.add((vertex2, vertex1))
-        # case for a single variable
-        elif isinstance(edges, tuple):
-            if len(edges) != 2:
-                raise TypeError("each edge must have only beg and the end")  # fix err msg
-            # adding edges
-            vertex1, vertex2 = edges
-            if vertex1 not in self.vertices:
-                raise NameError("v1 does nto belong to a graph")  # fix err msg
-            if vertex2 not in self.vertices:
-                raise NameError("v2 does nto belong to a graph")  # fix err msg
-            if vertex1 not in self.adj_l:
-                self.adj_l[vertex1] = {vertex2}
-            else:
-                self.adj_l[vertex11].add(vertex2)
-            if not self.directed:
-                if vertex2 not in self.adj_l:
-                    self.adj_l[vertex2] = {vertex1}
+                        for y in self.vertices:
+                            self.adj_l[y].difference_update(x)
+                    del self.adj_l[x]
+        # Case for a single variable
+        else:
+            x = vertices
+            if x in self.vertices:
+                # Fast implementation for undirected graphs
+                if not self.directed:
+                    for y in self.adj_l[x]:
+                        self.adj_l[y].differnce_update(x)
                 else:
-                    self.adj_l[vertex2].add(vertex1)
-        # think about if maybe add else here
-        elif not isinstance(edges, tuple):
-            raise TypeError("edge must be set or single variable")  # fix err msg
+                    for y in self.vertices:
+                        self.adj_l[y].difference_update(x)
+                del self.adj_l[x]
+        # Combine both cases together
+        # Redo this function, use iteration through self.edges, also update self.edges list
+        '''
+        if isinstance(vertices, set):
+            for x in vertices:
+                if x in self.vertecies:
+                    for edge in self.edges:
+                        if edge[1] == x:
+                            self.edges.difference_update(edge)
+                            self.adj_l[edge[0]].difference_update(x)
+                        elif edge[0] == x:
+                            self.edges.difference_update(edge)
+                    del self.adj_l[x]
+        else:
+            x = vertices
+            if x in self.vertecies:
+                for edge in self.edges:
+                    if edge[1] == x:
+                        self.edges.difference_update(edge)
+                        self.adj_l[edge[0]].difference_update(x)
+                    elif edge[0] == x:
+                            self.edges.difference_update(edge)
+                del self.adj_l[x]
+
+
 
     def is_vertex(self, vertex):
         """Returns a boolean indicating if vertex belongs to the graph.
@@ -176,9 +138,92 @@ class Graph(object):
             A boolean indicating if vertex belongs to the graph.
 
         """
-
         return vertex in self.vertices
         # fix name func
+
+    def add_edge(self, edges):
+        """Adds edges to the graph
+
+        Args:
+            edges: a set of edges of a single variable.  # fix
+
+        Raises:
+            TypeError: if edges is of incorrect type  # fix
+            NameError: if vertex does not belong to the graph  # fix
+
+        """
+        # Case for a set of edges
+        if isinstance(edges, set):
+            for edge in edges:
+                # Consider combining two if statements together
+                if not isinstance(edge, tuple):
+                    raise TypeError("each edge must be a tuple")  # fix err msg
+                if len(edge) != 2:
+                    raise TypeError("each edge must be a tuple of length 2")  # fix err msg
+                # Adding edges to self.adj_l and self.edges
+                x, y = edge
+                if x not in self.vertices:
+                    raise NameError("x does nto belong to a graph")  # fix err msg
+                if y not in self.vertices:
+                    raise NameError("y does nto belong to a graph")  # fix err msg
+
+                if x not in self.adj_l:
+                    self.adj_l[x] = {y}
+                else:
+                    self.adj_l[x].add(y)
+                self.edges.add((x, y))
+
+                if not self.directed:
+                    if y not in self.adj_l:
+                        self.adj_l[y] = {x}
+                    else:
+                        self.adj_l[y].add(x)
+                    self.edges.add((y, x))
+        # Case for a single edge
+        elif isinstance(edges, tuple):
+            if len(edges) != 2:
+                raise TypeError("edge must by a tuple of length 2")  # fix err msg
+            x, y = edges
+            if x not in self.vertices:
+                raise NameError("x does not belong to a graph")  # fix err msg
+            if y not in self.vertices:
+                raise NameError("y does not belong to a graph")  # fix err msg
+            if x not in self.adj_l:
+                self.adj_l[x] = {y}
+            else:
+                self.adj_l[x].add(y)
+            if not self.directed:
+                if y not in self.adj_l:
+                    self.adj_l[y] = {x}
+                else:
+                    self.adj_l[y].add(x)
+        # Fix if/else statements here
+        elif not isinstance(edges, tuple):
+            raise TypeError("edge must be set or single variable")  # fix err msg
+        # Combine both cases into one
+
+    def remove_edge(self, edges):
+        """Removes edges from a graph
+
+        Args:
+            edges: set or a single variable representing edges
+        """
+        if isinstance(edges, set):
+            for edge in edges:
+                if edge in self.edges:
+                    self.edges.difference_update(edge)
+                    x, y = edge
+                    self.adj_l[x].difference_update(y)
+                    if not self.directed:
+                        self.adj_j[y].difference_update(x)
+        else:
+            edge = edges
+            if edge in self.edges:
+                self.edges.difference_update(edge)
+                x, y = edge
+                self.adj_l[x].difference_update(y)
+                if not self.directed:
+                    self.adj_j[y].difference_update(x)
 
     def is_edge(self, edge):
         """Returns a boolean indicating if edge belong to the graph.  # fix
@@ -198,34 +243,47 @@ class Graph(object):
 
         return edge in self.edges
         # fix name func
+        # Is error checking nece?
 
-        # think about err checking, maybe a write a a very nice func that catches all these...
-        # def check(params)...
-        # params ex: edges = Trues, vertices = False, etc...
+    # Think about err checking, maybe a write a a very nice func that catches all these...
+    # def check(params):...
+    # params ex: edges = Trues, vertices = False, etc...
 
-    def incident(self, vertex1, vertex2):
-        """Returns a boolean indicating incidency of vertices.
+    def adjacent(self, x, y):
+        """Returns a boolean indicating adjacency of vertices.
 
         Args:
-            vertex1: First vertex.
-            vertex2: Second vertex.
+            x: First vertex.
+            y: Second vertex.
 
         Returns:
-            A boolean indicating incidency of vertices.
+            A boolean indicating adjacency of vertices.
 
         Raises:
             NameError: vertex1 or vertex2 do not belong to the graph  # fix
-
         """
 
-        if vertex1 not in self.vertices:
-            raise NameError("vertex1 does not belong to the graph")  # fix err msg
-        if vertex2 not in self.vertices:
-            raise NameError("vertex2 does not belong to the graph")  # fix err msg
+        if x not in self.vertices:
+            raise NameError("x does not belong to the graph")  # fix err msg
+        if y not in self.vertices:
+            raise NameError("y does not belong to the graph")  # fix err msg
 
-        return vertex2 in self.adj_l[vertex1]
-        # possibly change name to incident?
-        # one line solution may cause bugs for dir and undirected graphs look into it
+        return y in self.adj_l[x]
+
+    def neighbours(self, x):
+        """Returns a set of all vertices adjacent with x.
+
+         Args:
+             x: Vertex.
+
+        Returns:
+            A set of all vertices adjacent with x.
+
+        Raises:
+            NameError: if x does not belong to the graph
+
+        """
+        return self.adj_l[x]
 
     def order(self):
         """Returns the order of the graph.
@@ -244,26 +302,24 @@ class Graph(object):
         """
 
         return len(self.edges)
-        # size of a graph
-        # add a fix for directed and undirected graphs
+        # Fix for directed and undirected graphs
 
-    def degree(self, vertex):
+    def degree(self, x):
         """Returns degree of the vertex in the graph
 
         Args:
-            vertex: vertex
+            x: vertex
 
         Returns:
             Degree of the vertex in the graph.
 
         Raises:
-            NameError: if vertex does not belong to the graph.  # fix err msg
+            NameError: if x does not belong to the graph.  # fix
         """
 
-        if vertex not in self.vertices:
-            raise NameError("vertex does not belong to the graph")  # fix err msg
+        if x not in self.vertices:
+            raise NameError("x does not belong to the graph")  # fix err msg
 
-        return len(self.adj_l[vertex])
-        # degree of a vertex
-        # add error for vertex not in self.verticies
+        return len(self.adj_l[x])
+
 
