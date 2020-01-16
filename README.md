@@ -15,7 +15,7 @@ on graphs. The module also has useful algorithms built in to it and has graph vi
 
 Sample code can be found in the repository. 
 
-## Resources used
+## Resources
 https://en.wikipedia.org/wiki/Graph_theory  
 https://en.wikipedia.org/wiki/Graph_(abstract_data_type)  
 https://wiki.python.org/moin/TimeComplexity  
