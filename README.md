@@ -9,7 +9,7 @@ https://en.wikipedia.org/wiki/Seven_Bridges_of_Königsberg
 ## Graph Implementaion
 This Graph Object Implementation Module, offers efficient implementation of graphs by taking advantage of dic and set data
 types in Python. This module supports weighted, unweigthed, directed and undirected graphs. It takes advantage of Python's
-set.difference_update(t), which allows to reduce time complexity in removing verticies from undirected graphs. his module is
+set.difference_update(t), which allows to reduce time complexity in removing verticies from undirected graphs. This module is
 easy to use and simplifies algorithm implementation. It is efficient and can be potentially useful for debugging algorithms 
 on graphs. The module also has useful algorithms built in to it and has graph visualisation implementation in the works.
 
