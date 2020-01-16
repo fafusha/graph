@@ -16,9 +16,9 @@ on graphs. The module also has useful algorithms built in to it and has graph vi
 Sample code can be found in the repository. 
 
 ## Resources used
-https://en.wikipedia.org/wiki/Graph_theory \n
-https://en.wikipedia.org/wiki/Graph_(abstract_data_type) \n 
-https://wiki.python.org/moin/TimeComplexity \n
+https://en.wikipedia.org/wiki/Graph_theory  
+https://en.wikipedia.org/wiki/Graph_(abstract_data_type)  
+https://wiki.python.org/moin/TimeComplexity  
 https://python-reference.readthedocs.io/en/latest/docs/sets/difference_update.html
 
 ## Video Material
