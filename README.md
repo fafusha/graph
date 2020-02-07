@@ -1,7 +1,7 @@
 # Graph
 ## What is a Graph?
 Graphs are mathematical structures used to model pairwise relations between objects. A graph in this context is made up of 
-vertices which are connected by edges and are used to model pairwise relations between objects. 
+vertices which are connected by edges and are used to model pairwise relations between objects.
 
 A concept of a graph was first discussed by Leonhard Euler in 1736 during his work in the Russian Empire.
 https://en.wikipedia.org/wiki/Seven_Bridges_of_Königsberg
