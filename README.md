@@ -17,7 +17,7 @@ All documentation can be found in doc.txt.
 Sample code can be found in the repository. 
 
 ## Resources
-https://en.wikipedia.org/wiki/Graph_theory  
+https://en.wikipedia.org/wiki/Graph_theory
 https://en.wikipedia.org/wiki/Graph_(abstract_data_type)  
 https://wiki.python.org/moin/TimeComplexity  
 https://python-reference.readthedocs.io/en/latest/docs/sets/difference_update.html
