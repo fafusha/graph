@@ -23,5 +23,5 @@ https://wiki.python.org/moin/TimeComplexity
 https://python-reference.readthedocs.io/en/latest/docs/sets/difference_update.html
 
 ## Video Material
-2017-2018 Algorithms and Data Structeres in Python 3 by Hiriyanov Timofey Fedorovich
-https://www.youtube.com/playlist?list=PLRDzFCPr95fK7tr47883DFUbm4GeOjjc0
+[2017-2018 Algorithms and Data Structeres in Python 3 by Hiriyanov Timofey Fedorovich](https://www.youtube.com/playlist?list=PLRDzFCPr95fK7tr47883DFUbm4GeOjjc0)
+
