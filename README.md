@@ -14,7 +14,7 @@ on graphs. The module also has useful algorithms built in to it and has graph vi
 
 All documentation can be found in doc.txt.
 
-Sample code can be found in the repository. 
+Sample code can be found in the repository.   
 
 ## Resources
 https://en.wikipedia.org/wiki/Graph_theory
